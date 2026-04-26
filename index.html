@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Baby Blue Calendar Widget</title>
+<style>
+body{margin:0;display:flex;justify-content:center;align-items:center;min-height:100vh;background:transparent;font-family:Arial,sans-serif}
+.widget{width:320px;background:#dceaf7;border-radius:12px;padding:18px;color:#7d95b8;box-sizing:border-box}
+.header{display:flex;justify-content:space-between;font-size:14px;margin-bottom:20px;font-weight:600}
+.month{text-align:center;font-size:32px;font-weight:700;letter-spacing:1px;margin-bottom:18px;color:#8aa3c4}
+.grid{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;text-align:center;font-size:14px}
+.dayname{font-weight:700;color:#9cb2cf}
+.day{padding:4px 0}
+.today{font-weight:700;color:#5f7ea8}
+</style>
+</head>
+<body>
+<div class="widget">
+<div class="header"><span>&lt; PREV</span><span>NEXT &gt;</span></div>
+<div class="month" id="month"></div>
+<div class="grid" id="calendar"></div>
+</div>
+<script>
+const names=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const cal=document.getElementById('calendar');
+const now=new Date();
+const y=now.getFullYear(), m=now.getMonth();
+document.getElementById('month').textContent=now.toLocaleString('en-US',{month:'long',year:'numeric'}).toUpperCase();
+names.forEach(n=>{const d=document.createElement('div');d.className='dayname';d.textContent=n;cal.appendChild(d)});
+const first=new Date(y,m,1).getDay(); const days=new Date(y,m+1,0).getDate();
+for(let i=0;i<first;i++){const e=document.createElement('div');cal.appendChild(e)}
+for(let d=1;d<=days;d++){const el=document.createElement('div');el.className='day'; if(d===now.getDate())el.classList.add('today'); el.textContent=d; cal.appendChild(el)}
+</script>
+</body>
+</html>
